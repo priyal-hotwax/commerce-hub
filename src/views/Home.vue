@@ -1,7 +1,7 @@
 <template>
-  <ion-page>    
+  <ion-page>
     <ion-content :fullscreen="true">
-     <main> 
+     <main>
       <figure>
         <img src="../assets/images/hc.png"/>
       </figure>
@@ -63,40 +63,50 @@
           <ion-label>Stuck orders</ion-label>
             <ion-button slot="end" fill="outline" size="medium">View all</ion-button>
         </ion-item>
-  
-        <div class="scroller-content">
-          <div class="scroller-item" v-for="i = 1 in 10" :key="i">  
-              <ion-card>
-                <ion-item lines="none">
-                  <ion-label>
-                    Customer name
-                    <p>Order ID</p>
-                  </ion-label>
-                  <ion-note slot="end">auto cancel delta</ion-note>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-thumbnail slot="start">
-                    <img src="https://cdn.shopify.com/s/files/1/0069/7384/9727/products/test-track.jpg?v=1626255137" />
-                  </ion-thumbnail>
-                  <ion-label>
-                    <p>Brand</p>
-                    Virtual name
-                    <p>Color: color</p>
-                    <p>Size: size</p>
-                  </ion-label>
-                  <ion-note slot="end" color="success">15 in stock</ion-note>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Last brokered</ion-label>
-                  <ion-text slot="end">California Warehouse</ion-text>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Rebrokered</ion-label>
-                  <ion-text slot="end">5 times</ion-text>
-                </ion-item>
-              </ion-card>
-          </div>  
+
+      <div class="scroller-wrapper">
+
+        <div class="scroller-content" ref="ionCard">
+          <div @click="prevItemAnimate($event)" class="button-nav-wrapper prev-button-wrapper">
+            <ion-icon :icon="arrowBack" slot="start" />
+          </div>
+          <div @click="nextItemAnimate($event)" class="button-nav-wrapper next-button-wrapper">
+            <ion-icon :icon="arrowForward" slot="end" />
+          </div>
+          <div class="scroller-item" v-for="i = 1 in 10" :key="i" ref="scrollItem">
+            <ion-card id="ion-card" class="ion-custom-card">
+              <ion-item lines="none">
+                <ion-label>
+                  Customer name
+                  <p>Order ID</p>
+                </ion-label>
+                <ion-note slot="end">auto cancel delta</ion-note>
+              </ion-item>
+              <ion-item lines="full">
+                <ion-thumbnail slot="start">
+                  <img src="https://cdn.shopify.com/s/files/1/0069/7384/9727/products/test-track.jpg?v=1626255137" />
+                </ion-thumbnail>
+                <ion-label>
+                  <p>Brand</p>
+                  Virtual name
+                  <p>Color: color</p>
+                  <p>Size: size</p>
+                </ion-label>
+                <ion-note slot="end" color="success">15 in stock</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-label>Last brokered</ion-label>
+                <ion-text slot="end">California Warehouse</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Rebrokered</ion-label>
+                <ion-text slot="end">5 times</ion-text>
+              </ion-item>
+            </ion-card>
+          </div>
         </div>
+      </div>
+
       </section>
      </main>
     </ion-content>
@@ -107,35 +117,106 @@
 import { IonButton, IonCard, IonContent, IonCardHeader, IonCardTitle, IonIcon, IonItem, IonLabel, IonNote, IonPage, IonThumbnail } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import { ticketOutline, shirtOutline, sendOutline, calendarOutline, settingsOutline } from 'ionicons/icons'
-
+import { ticketOutline, shirtOutline, sendOutline, calendarOutline, settingsOutline, arrowBack, arrowForward } from 'ionicons/icons';
+import { createAnimation } from '@ionic/vue';
+import { ref } from 'vue';
 export default defineComponent({
   name: 'Home',
   components: {
-    IonButton, 
-    IonCard, 
-    IonContent, 
-    IonCardHeader, 
-    IonCardTitle, 
-    IonIcon, 
-    IonItem, 
-    IonLabel, 
-    IonNote, 
-    IonPage, 
+    IonButton,
+    IonCard,
+    IonContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonNote,
+    IonPage,
     IonThumbnail
   },
   setup() {
     const router = useRouter();
-
+    const ionCard = ref();
+    const scrollItem = ref();
     return {
       router,
       ticketOutline,
       shirtOutline,
       sendOutline,
       calendarOutline,
-      settingsOutline
+      settingsOutline,
+      arrowBack,
+      arrowForward,
+      ionCard,
+      scrollItem
     }
-  }
+  },
+  data() {
+    return {
+      count: 0,
+      countLess: 200
+    }
+  },
+  methods: {
+    async nextItemAnimate(event: any) {
+
+      // first child of the parent node
+      this.ionCard.scrollLeft += 1000;
+      // console.log(event.target, this.ionCard);
+
+
+      // collecting siblings
+      // while (sibling) {
+      //   // sibling = sibling.nextSibling;
+      //   const animation = createAnimation()
+      //       .addElement(sibling)
+      //       .easing('ease-in')
+      //       .duration(1500)
+      //       .fromTo('transform','translateX('+this.ionCard.scrollLeft+'px)', 'translateX(100px)');
+      //   animation.play();
+      //   sibling = sibling.nextElementSibling;
+      // }
+      // const animation = createAnimation()
+      //     .addElement(this.ionCard)
+      //     .easing('ease-in')
+      //     .duration(5000)
+      //     .fromTo('opacity','0.7', '1')
+      //     .fromTo('transform','scale(1)', 'scale(1.01)');
+      // animation.play();
+      // event.preventDefault();
+      // for(let i = 0; i < sibling.nextElementSibling.length; i++) {
+      //   if( i === 3) {
+      //     const animation = createAnimation()
+      //         .addElement(sibling.nextElementSibling)
+      //         .easing('ease-in')
+      //         .duration(1500)
+      //         .fromTo('transform','translateX(0)', 'translateX(50%)');
+      //     animation.play();
+      //   }
+      //
+      // }
+
+      },
+      async prevItemAnimate(event: any) {
+        // first child of the parent node
+        // const sibling = event.target.parentNode.nextElementSibling;
+        // collecting siblings
+        // while (sibling) {
+          // sibling = sibling.nextSibling;
+          // const animation = createAnimation()
+          //     .addElement(sibling)
+          //     .easing('ease-in')
+          //     .duration(1500)
+          //     .fromTo('transform','translateX('+this.count+ 'px)', 'translateX('+this.countLess +' px)');
+          // animation.play();
+          // sibling = sibling.nextElementSibling;
+          // console.log('scroll', event.target.parentNode.scrollLeft);
+        // }
+        this.ionCard.scrollLeft -= 350;
+        event.preventDefault();
+      },
+  },
 });
 </script>
 
@@ -190,19 +271,56 @@ ion-card > ion-card-header {
 .scroller-content {
   display: flex;
   overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: inherit;
+  -webkit-overflow-scrolling: touch;
 }
 
 .scroller-item{
   flex-shrink: 0;
   position: relative;
   transform: translateX(calc(max(var(--page-width), 100vw)/2 - var(--page-width)/2));
+  left:0;
+  scroll-snap-align: start;
 }
 
 .scroller-content > .scroller-item:last-child ion-card{
   margin-right: 40px;
 }
 
+.scroller-wrapper {
+  position: relative;
+}
+
 main {
   --page-width: 1024px;
+}
+
+.prev-button-wrapper {
+  left: 1%;
+}
+
+.next-button-wrapper {
+  right: 1%;
+}
+
+.button-nav-wrapper {
+  position: fixed;
+  z-index: 1;
+  bottom: 14%;
+  cursor: pointer;
+  background: #757575;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html {
+
 }
 </style>
