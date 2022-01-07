@@ -64,12 +64,11 @@
             <ion-button slot="end" fill="outline" size="medium">View all</ion-button>
         </ion-item>
 
-      <div class="scroller-wrapper">
-
-        <div class="scroller-content" ref="ionCard">
-          <div @click="prevItemAnimate($event)" class="button-nav-wrapper prev-button-wrapper">
-            <ion-icon :icon="arrowBack" slot="start" />
-          </div>
+        <div class="scroller-wrapper">
+          <div class="scroller-content" ref="ionCard">
+            <div @click="prevItemAnimate($event)" class="button-nav-wrapper prev-button-wrapper">
+              <ion-icon :icon="arrowBack" slot="start" />
+            </div>
           <div @click="nextItemAnimate($event)" class="button-nav-wrapper next-button-wrapper">
             <ion-icon :icon="arrowForward" slot="end" />
           </div>
@@ -104,9 +103,8 @@
               </ion-item>
             </ion-card>
           </div>
+          </div>
         </div>
-      </div>
-
       </section>
      </main>
     </ion-content>
@@ -160,62 +158,11 @@ export default defineComponent({
   },
   methods: {
     async nextItemAnimate(event: any) {
-
-      // first child of the parent node
-      this.ionCard.scrollLeft += 1000;
-      // console.log(event.target, this.ionCard);
-
-
-      // collecting siblings
-      // while (sibling) {
-      //   // sibling = sibling.nextSibling;
-      //   const animation = createAnimation()
-      //       .addElement(sibling)
-      //       .easing('ease-in')
-      //       .duration(1500)
-      //       .fromTo('transform','translateX('+this.ionCard.scrollLeft+'px)', 'translateX(100px)');
-      //   animation.play();
-      //   sibling = sibling.nextElementSibling;
-      // }
-      // const animation = createAnimation()
-      //     .addElement(this.ionCard)
-      //     .easing('ease-in')
-      //     .duration(5000)
-      //     .fromTo('opacity','0.7', '1')
-      //     .fromTo('transform','scale(1)', 'scale(1.01)');
-      // animation.play();
-      // event.preventDefault();
-      // for(let i = 0; i < sibling.nextElementSibling.length; i++) {
-      //   if( i === 3) {
-      //     const animation = createAnimation()
-      //         .addElement(sibling.nextElementSibling)
-      //         .easing('ease-in')
-      //         .duration(1500)
-      //         .fromTo('transform','translateX(0)', 'translateX(50%)');
-      //     animation.play();
-      //   }
-      //
-      // }
-
-      },
-      async prevItemAnimate(event: any) {
-        // first child of the parent node
-        // const sibling = event.target.parentNode.nextElementSibling;
-        // collecting siblings
-        // while (sibling) {
-          // sibling = sibling.nextSibling;
-          // const animation = createAnimation()
-          //     .addElement(sibling)
-          //     .easing('ease-in')
-          //     .duration(1500)
-          //     .fromTo('transform','translateX('+this.count+ 'px)', 'translateX('+this.countLess +' px)');
-          // animation.play();
-          // sibling = sibling.nextElementSibling;
-          // console.log('scroll', event.target.parentNode.scrollLeft);
-        // }
-        this.ionCard.scrollLeft -= 350;
-        event.preventDefault();
-      },
+        this.ionCard.scrollLeft += 1000;
+    },
+    async prevItemAnimate(event: any) {
+      this.ionCard.scrollLeft -= 350;
+    },
   },
 });
 </script>
@@ -272,8 +219,6 @@ ion-card > ion-card-header {
   display: flex;
   overflow-x: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: inherit;
-  -webkit-overflow-scrolling: touch;
 }
 
 .scroller-item{
