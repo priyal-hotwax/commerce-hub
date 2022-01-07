@@ -66,43 +66,43 @@
 
         <div class="scroller-wrapper">
           <div class="scroller-content" ref="ionCard">
-            <div @click="prevItemAnimate($event)" class="button-nav-wrapper prev-button-wrapper">
+            <div @click="prevItems($event)" class="button-nav-wrapper prev-button-wrapper">
               <ion-icon :icon="arrowBack" slot="start" />
             </div>
-          <div @click="nextItemAnimate($event)" class="button-nav-wrapper next-button-wrapper">
-            <ion-icon :icon="arrowForward" slot="end" />
-          </div>
-          <div class="scroller-item" v-for="i = 1 in 10" :key="i" ref="scrollItem">
-            <ion-card id="ion-card" class="ion-custom-card">
-              <ion-item lines="none">
-                <ion-label>
-                  Customer name
-                  <p>Order ID</p>
-                </ion-label>
-                <ion-note slot="end">auto cancel delta</ion-note>
-              </ion-item>
-              <ion-item lines="full">
-                <ion-thumbnail slot="start">
-                  <img src="https://cdn.shopify.com/s/files/1/0069/7384/9727/products/test-track.jpg?v=1626255137" />
-                </ion-thumbnail>
-                <ion-label>
-                  <p>Brand</p>
-                  Virtual name
-                  <p>Color: color</p>
-                  <p>Size: size</p>
-                </ion-label>
-                <ion-note slot="end" color="success">15 in stock</ion-note>
-              </ion-item>
-              <ion-item>
-                <ion-label>Last brokered</ion-label>
-                <ion-text slot="end">California Warehouse</ion-text>
-              </ion-item>
-              <ion-item>
-                <ion-label>Rebrokered</ion-label>
-                <ion-text slot="end">5 times</ion-text>
-              </ion-item>
-            </ion-card>
-          </div>
+            <div @click="nextItems($event)" class="button-nav-wrapper next-button-wrapper">
+              <ion-icon :icon="arrowForward" slot="end" />
+            </div>
+            <div class="scroller-item" v-for="i = 1 in 10" :key="i" ref="scrollItem">
+              <ion-card id="ion-card" class="ion-custom-card">
+                <ion-item lines="none">
+                  <ion-label>
+                    Customer name
+                    <p>Order ID</p>
+                  </ion-label>
+                  <ion-note slot="end">auto cancel delta</ion-note>
+                </ion-item>
+                <ion-item lines="full">
+                  <ion-thumbnail slot="start">
+                    <img src="https://cdn.shopify.com/s/files/1/0069/7384/9727/products/test-track.jpg?v=1626255137" />
+                  </ion-thumbnail>
+                  <ion-label>
+                    <p>Brand</p>
+                    Virtual name
+                    <p>Color: color</p>
+                    <p>Size: size</p>
+                  </ion-label>
+                  <ion-note slot="end" color="success">15 in stock</ion-note>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Last brokered</ion-label>
+                  <ion-text slot="end">California Warehouse</ion-text>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Rebrokered</ion-label>
+                  <ion-text slot="end">5 times</ion-text>
+                </ion-item>
+              </ion-card>
+            </div>
           </div>
         </div>
       </section>
@@ -157,10 +157,10 @@ export default defineComponent({
     }
   },
   methods: {
-    async nextItemAnimate(event: any) {
-        this.ionCard.scrollLeft += 1000;
+    async nextItems(event: any) {
+        this.ionCard.scrollLeft += 350;
     },
-    async prevItemAnimate(event: any) {
+    async prevItems(event: any) {
       this.ionCard.scrollLeft -= 350;
     },
   },
